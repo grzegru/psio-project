@@ -13,6 +13,9 @@ class Collisions
 public:
     Collisions();
 
+    bool CheckCollision(sf::Sprite sprite1, sf::Sprite sprite2);
+    bool CheckCollision(sf::Sprite sprite1, sf::Sprite sprite2, sf::Sprite sprite3);
+
 
 
 

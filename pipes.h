@@ -21,6 +21,10 @@ public:
     int PosX=700;
     int PosY=800;
 
+    const sf::Sprite &GetSprite( ) const;
+
+    const sf::Sprite &GetSprite2( ) const;
+
 
 
 

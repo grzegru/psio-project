@@ -25,12 +25,14 @@ void Ground::Draw(sf::RenderWindow&window){
 
 
 void Ground::animate(sf::Time &elapsed){
-    ground.move(speed*elapsed.asSeconds(),0);
+    ground.move(ground_speed*elapsed.asSeconds(),0);
 }
 
 
 
-
+const sf::Sprite &Ground::GetSprite( ) const{
+    return ground;
+}
 
 
 

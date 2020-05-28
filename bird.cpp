@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "pipes.h"
+#include "ground.h"
 
 
 
@@ -90,6 +91,15 @@ Bird::Bird(int PosX, int PosY)
                 bird.setRotation(angle);
                 //std::cout<<"flying"<<std::endl;
                 break;
+           /* case STILL:
+                bird.move(0,0);
+
+                angle-=50*elapsed.asSeconds();
+                if(angle < 0)
+                    angle=0;
+                bird.setRotation(angle);
+                std::cout<<"still";
+                break;*/
             default:
                 break;
             }
@@ -99,20 +109,35 @@ Bird::Bird(int PosX, int PosY)
             {
                 _moveClock.restart();
                 birdState = FALLING;
+                /*if(0.3<_moveClock.getElapsedTime().asSeconds() > 0.35){
+                   _moveClock.restart();
+                    birdState = FALLING; //STILL;
+                }*/
             }
+
+
+
+
+
+
+
+
+
+
         }
 
     void Bird::click(){
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
             _moveClock.restart();
+            _move2Clock.restart();
             birdState=FLYING;
         }
 
     }
 
-    void Bird::groundCollision(){
-        if(bird.getPosition().y>700){
-            std::cout<<"ground collision";
+    bool Bird::groundCollision(){
+        if(bird.getPosition().y>648){
+            return true;
         }
     }
 
@@ -123,3 +148,7 @@ Bird::Bird(int PosX, int PosY)
         window.draw(bird);
     }
 
+
+    const sf::Sprite &Bird::GetSprite( ) const{
+        return bird;
+    }

@@ -47,6 +47,19 @@ Pipes::Pipes(int PosX, int PosY, int Distance)
 
      }
 
+     const sf::Sprite &Pipes::GetSprite( ) const{
+         return pipe_up;
+
+
+     }
+
+     const sf::Sprite &Pipes::GetSprite2( ) const{
+         return pipe_down;
+
+     }
+
+
+
 
 
 

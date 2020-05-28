@@ -26,24 +26,27 @@ public:
 
     void birdflying(sf::Time &elapsed);
 
-    void groundCollision();
+    bool groundCollision();
 
     int PosX=100;
     int PosY=400;
     int gravitation=200;
     int fly=-200;
 
+    const sf::Sprite &GetSprite( ) const;
+
 
     sf::Texture texture_bird1,texture_bird2,texture_bird3,texture_bird4;
     sf::Sprite bird;
     std::vector<sf::Texture> _animationBirdFrame;
-    sf::Texture animationFrames[3];
+
 
     unsigned int _animationBirdIterator;
 
     sf::Clock _clock;
 
     sf::Clock _moveClock;
+    sf::Clock _move2Clock;
 
     float angle;
 

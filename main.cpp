@@ -33,20 +33,11 @@ GameOver gameover;
 
 
 
+
 //zmienne
 bool isGameStart=false;
 bool BirdFlying=false;
 bool isGameOver;
-
-
-/*void collisi(Bird bird, Ground ground){
-    sf::IntRect obiekt1(bird.getGlobalBounds());
-    sf::IntRect obiekt2(ground.getGlobalBounds());
-    if(obiekt1.intersects(obiekt2)){
-        std::cout<<"kolizja";
-}
-}*/
-
 
 
 
@@ -99,29 +90,31 @@ int main()
             }else if(isGameStart){
                 pipe1.Draw(window);            //rysowanie
                 pipe2.Draw(window);
+                bird.Draw(window);
+                ground.Draw(window);
 
-
-                pipe1.animate(elapsed);         //poruszanie sie rur
-                pipe2.animate(elapsed);
-
-                ground.Draw(window);             // rysowanie
-                ground.animate(elapsed);        //ruch podłoża
-
-
-                bird.animate();                          //ruch skrzydel ptaka , jego latanie w osi OY
-                bird.Update(elapsed);
-                bird.click();
-                bird.Draw(window);                         //rysowanie ptaka
                 bird.groundCollision();
+                if(((!collision.CheckCollision(bird.GetSprite(),ground.GetSprite()))&&                      //kolizja ptaka z podlozem
+                  (!collision.CheckCollision(bird.GetSprite(), pipe1.GetSprite(), pipe2.GetSprite())))&&    //kolizja ptaka z rura g
+                  (!collision.CheckCollision(bird.GetSprite(), pipe1.GetSprite2(), pipe2.GetSprite2())))    //kolizja ptaka z rura d
+                {
+
+                    pipe1.animate(elapsed);         //poruszanie sie rur
+                    pipe2.animate(elapsed);
 
 
+                    ground.animate(elapsed);        //ruch podłoża
 
 
+                    bird.animate();                          //ruch skrzydel ptaka , jego latanie w osi OY
+                    bird.Update(elapsed);
+                    bird.click();
+
+                }else{
+                    //cout<<"dupa";
+                    gameover.Draw(window);
+                }
             }
-
-
-
-
 
 
 

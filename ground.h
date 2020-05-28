@@ -21,7 +21,9 @@ public:
 
     int PosX=0;
     int PosY=700;
-    int speed=-150;
+    int ground_speed=-150;
+
+    const sf::Sprite &GetSprite( ) const;
 
 
 

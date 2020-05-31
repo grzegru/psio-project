@@ -16,14 +16,16 @@ public:
     void Draw(sf::RenderWindow&window);
     void animate(sf::Time &elapsed);
 
+    bool CheckPoints(float BirdPos);
+
 
     float speed=-150;
     int PosX=700;
     int PosY=800;
 
-    const sf::Sprite &GetSprite( ) const;
+    const sf::Sprite &GetSprite() const;
 
-    const sf::Sprite &GetSprite2( ) const;
+    const sf::Sprite &GetSprite2() const;
 
 
 

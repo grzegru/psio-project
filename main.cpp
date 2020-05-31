@@ -11,6 +11,7 @@
 #include "collisions.h"
 #include "GameMenu.h"
 #include "gameover.h"
+#include "Points.h"
 
 
 using namespace std;
@@ -27,6 +28,7 @@ Background background;
 Collisions collision;
 GameMenu gamemenu;
 GameOver gameover;
+Points points;
 
 
 
@@ -38,6 +40,10 @@ GameOver gameover;
 bool isGameStart=false;
 bool BirdFlying=false;
 bool isGameOver;
+
+int amount_of_points=0;
+
+bool addpoint=false;
 
 
 
@@ -52,8 +58,6 @@ int main()
 
 
     sf::Clock clock;
-
-
 
 
     while (window.isOpen()) {
@@ -93,8 +97,29 @@ int main()
                 bird.Draw(window);
                 ground.Draw(window);
 
-                bird.groundCollision();
-                if(((!collision.CheckCollision(bird.GetSprite(),ground.GetSprite()))&&                      //kolizja ptaka z podlozem
+                if(pipe1.CheckPoints(bird.getPosition().x) || pipe2.CheckPoints(bird.getPosition().x)){
+                    addpoint=true;
+                    amount_of_points++;
+
+
+                }else{
+                   addpoint=false;
+                  // std::cout<<amount_of_points;
+                }
+
+                //if(addpoint){
+                //    amount_of_points++;
+                //}else{
+               //     std::cout<<amount_of_points<<std::endl;
+               // }
+
+
+
+
+
+
+
+                if(((!collision.CheckCollision(bird.GetSprite(), ground.GetSprite()))&&                      //kolizja ptaka z podlozem
                   (!collision.CheckCollision(bird.GetSprite(), pipe1.GetSprite(), pipe2.GetSprite())))&&    //kolizja ptaka z rura g
                   (!collision.CheckCollision(bird.GetSprite(), pipe1.GetSprite2(), pipe2.GetSprite2())))    //kolizja ptaka z rura d
                 {
@@ -106,15 +131,17 @@ int main()
                     ground.animate(elapsed);        //ruch podłoża
 
 
-                    bird.animate();                          //ruch skrzydel ptaka , jego latanie w osi OY
-                    bird.Update(elapsed);
-                    bird.click();
+                    bird.animate();                          //ruch skrzydel ptaka
+                    bird.Update(elapsed);                    //metoda odpowiadajaca za lot ptaka po kliknieciu(w osi OY oraz rotacja)
+                    bird.click();                             //wylapywanie klikniecia
 
                 }else{
-                    //cout<<"dupa";
-                    gameover.Draw(window);
+                   // gameover.Draw(window);
                 }
             }
+
+
+
 
 
 

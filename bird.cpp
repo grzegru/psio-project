@@ -39,7 +39,7 @@ Bird::Bird(int PosX, int PosY)
 
 
 
-    bird.setScale(0.075,0.075);
+    bird.setScale( 0.075 , 0.075 );
     bird.setPosition(PosX,PosY);
     bird.setTexture(_animationBirdFrame.at(_animationBirdIterator));
 
@@ -59,7 +59,7 @@ Bird::Bird(int PosX, int PosY)
                _animationBirdIterator++;
             }
             else{
-                _animationBirdIterator=0;
+                _animationBirdIterator = 0;
             }
             bird.setTexture(_animationBirdFrame.at(_animationBirdIterator));
             _clock.restart();
@@ -72,7 +72,7 @@ Bird::Bird(int PosX, int PosY)
     void Bird::Update(sf::Time &elapsed)
         {
             // Update state.
-            switch (birdState) {
+            switch ( birdState ) {
             case FALLING:
                 bird.move(0, gravitation * elapsed.asSeconds());
 
@@ -135,11 +135,6 @@ Bird::Bird(int PosX, int PosY)
 
     }
 
-    bool Bird::groundCollision(){
-        if(bird.getPosition().y>648){
-            return true;
-        }
-    }
 
 
 

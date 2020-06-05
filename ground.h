@@ -19,11 +19,15 @@ public:
 
     void animate(sf::Time &elapsed);
 
+    const sf::Sprite &GetSprite( ) const;
+
+private:
+
     int PosX=0;
     int PosY=700;
     int ground_speed=-150;
 
-    const sf::Sprite &GetSprite( ) const;
+
 
 
 

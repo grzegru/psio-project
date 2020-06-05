@@ -44,11 +44,10 @@ Bird::Bird(int PosX, int PosY)
     bird.setTexture(_animationBirdFrame.at(_animationBirdIterator));
 
 
-    //angle=0;
+
 }
 
 
-//Bird::~Bird(){}
 
 
 
@@ -104,7 +103,6 @@ Bird::Bird(int PosX, int PosY)
                 break;
             }
 
-            // Check whether finish flying or not.
             if (_moveClock.getElapsedTime().asSeconds() > 0.3)
             {
                 _moveClock.restart();
@@ -115,16 +113,9 @@ Bird::Bird(int PosX, int PosY)
                 }*/
             }
 
-
-
-
-
-
-
-
-
-
         }
+
+
 
     void Bird::click(){
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
@@ -133,6 +124,17 @@ Bird::Bird(int PosX, int PosY)
             birdState=FLYING;
         }
 
+    }
+
+
+    void Bird::birdfalling(sf::Time &elapsed){
+        if(bird.getPosition().y < _ground_height ){
+            bird.move(0, fall_speed*elapsed.asSeconds());
+            angle+=100*elapsed.asSeconds();
+            if (angle > 50)
+                angle = 50;
+            bird.setRotation(angle);
+        }
     }
 
 

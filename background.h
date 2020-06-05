@@ -16,7 +16,7 @@ public:
 
     void draw(sf::RenderWindow&window);
 
-
+private:
     sf::Texture texture_background;
     sf::Sprite background;
 

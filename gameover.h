@@ -13,14 +13,20 @@ public:
     GameOver();
 
 
+    void Draw(sf::RenderWindow &window, int _points);
+
+    sf::Sprite PlayAgainButton, ExitButton;
 
 
 
-    sf::Texture texture_Game_Over, texture_ScoreBoard, texture_BronzeMedal, texture_SilverMedal, texture_GoldMedal;
-    sf::Sprite Game_over, ScoreBoard, BronzeMedal, SilverMedal, GoldMedal;
+private:
+    sf::Texture texture_Game_Over, texture_ScoreBoard, texture_BronzeMedal, texture_SilverMedal, texture_GoldMedal, texture_playAgain, texture_exit;
+    sf::Sprite Game_over, ScoreBoard, BronzeMedal, SilverMedal, GoldMedal;// PlayAgainButton, ExitButton;
 
-    void PipeCollision(sf::RenderWindow &window, bool isGameOver, int points);
-    void Draw(sf::RenderWindow &window);
+    sf::Clock _clock;
+
+    sf::Text _scoreTx;
+    sf::Font font;
 
 
 

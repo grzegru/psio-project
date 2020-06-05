@@ -79,9 +79,21 @@ Pipes::Pipes(int PosX, int PosY, int Distance)
          int rightside_pipedown=pipe_down.getPosition().x+pipe_down.getGlobalBounds().width;
 
 
-         if((rightside>=leftside_pipeup&&leftside<=rightside_pipeup) || (rightside >= leftside_pipedown && leftside <= rightside_pipedown)){
+         if((rightside >= leftside_pipeup&&leftside <= rightside_pipeup) || (rightside >= leftside_pipedown && leftside <= rightside_pipedown)){
+              return true;
+
+          }else{
+              return false;
+          }
+
+
+
+
+
+        /* if((rightside>=leftside_pipeup&&leftside<=rightside_pipeup) || (rightside >= leftside_pipedown && leftside <= rightside_pipedown)){
              return true;
+
          }else{
              return false;
-         }
+         }*/
      }

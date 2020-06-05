@@ -18,14 +18,17 @@ public:
 
     bool CheckPoints(float BirdPos);
 
+    const sf::Sprite &GetSprite() const;
+
+    const sf::Sprite &GetSprite2() const;
+
+private:
+
 
     float speed=-150;
     int PosX=700;
     int PosY=800;
 
-    const sf::Sprite &GetSprite() const;
-
-    const sf::Sprite &GetSprite2() const;
 
 
 

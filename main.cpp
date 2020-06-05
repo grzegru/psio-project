@@ -17,6 +17,7 @@
 using namespace std;
 
 sf::Vector2f windowsize(550,750);
+sf::Vector2f birdpos(50,400);
 
 
 //obiekty klas
@@ -38,8 +39,7 @@ Points points;
 
 //zmienne
 bool isGameStart=false;
-bool BirdFlying=false;
-bool isGameOver;
+bool isGameOver=false;
 
 int amount_of_points=0;
 
@@ -80,8 +80,10 @@ int main()
 
             background.draw(window);
 
-            if(!isGameStart){
+
+            if((isGameStart==false) && (isGameOver==false)){
                 gamemenu.Draw(window);
+                bird.setPosition(50,100);
                 if(event.type==sf::Event::MouseButtonPressed){
                     if(event.mouseButton.button==sf::Mouse::Left){
                         sf::Vector2i mousePos = sf::Mouse::getPosition(window);
@@ -90,56 +92,65 @@ int main()
                         }
                     }
                 }
+            }else if((isGameStart==true) && (isGameOver==false)){
+                pipe1.animate(elapsed);
+                pipe2.animate(elapsed);
 
-            }else if(isGameStart){
-                pipe1.Draw(window);            //rysowanie
+                ground.animate(elapsed);
+
+                bird.animate();
+                bird.Update(elapsed);                    //metoda odpowiadajaca za lot ptaka po kliknieciu(w osi OY oraz rotacja)
+                bird.click();                             //wylapywanie klikniecia
+
+
+                if(pipe1.CheckPoints(bird.getPosition().x) || pipe2.CheckPoints(bird.getPosition().x)){
+                    amount_of_points=amount_of_points+1;}                                             // do poprawy
+                   points.updateScore(amount_of_points/30);
+
+
+
+
+                if(((collision.CheckCollision(bird.GetSprite(), ground.GetSprite())) ||                     //kolizja ptaka z podlozem
+                  (collision.CheckCollision(bird.GetSprite(), pipe1.GetSprite(), pipe2.GetSprite()))) ||    //kolizja ptaka z rura g
+                  (collision.CheckCollision(bird.GetSprite(), pipe1.GetSprite2(), pipe2.GetSprite2()))){    //kolizja ptaka z rura d
+                    isGameOver=true;
+                    isGameStart=false;
+
+                }
+
+
+                pipe1.Draw(window);
                 pipe2.Draw(window);
                 bird.Draw(window);
                 ground.Draw(window);
-
-                if(pipe1.CheckPoints(bird.getPosition().x) || pipe2.CheckPoints(bird.getPosition().x)){
-                    addpoint=true;
-                    amount_of_points++;
+                points.Draw(window);
 
 
-                }else{
-                   addpoint=false;
-                  // std::cout<<amount_of_points;
+            }else if((isGameStart==false) && (isGameOver==true)){
+
+                bird.birdfalling(elapsed);
+
+                pipe1.Draw(window);
+                pipe2.Draw(window);
+                bird.Draw(window);
+                ground.Draw(window);
+                gameover.Draw(window, amount_of_points/2);
+
+                if(event.type==sf::Event::MouseButtonPressed){
+                    if(event.mouseButton.button==sf::Mouse::Left){
+                        sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+                        if(gameover.PlayAgainButton.getGlobalBounds().contains(mousePos.x,mousePos.y)){
+                            isGameStart=false;
+                            isGameOver=false;
+                            std::cout<<"klikniecie";
+
+
+                        }
+                    }
                 }
 
-                //if(addpoint){
-                //    amount_of_points++;
-                //}else{
-               //     std::cout<<amount_of_points<<std::endl;
-               // }
 
-
-
-
-
-
-
-                if(((!collision.CheckCollision(bird.GetSprite(), ground.GetSprite()))&&                      //kolizja ptaka z podlozem
-                  (!collision.CheckCollision(bird.GetSprite(), pipe1.GetSprite(), pipe2.GetSprite())))&&    //kolizja ptaka z rura g
-                  (!collision.CheckCollision(bird.GetSprite(), pipe1.GetSprite2(), pipe2.GetSprite2())))    //kolizja ptaka z rura d
-                {
-
-                    pipe1.animate(elapsed);         //poruszanie sie rur
-                    pipe2.animate(elapsed);
-
-
-                    ground.animate(elapsed);        //ruch podłoża
-
-
-                    bird.animate();                          //ruch skrzydel ptaka
-                    bird.Update(elapsed);                    //metoda odpowiadajaca za lot ptaka po kliknieciu(w osi OY oraz rotacja)
-                    bird.click();                             //wylapywanie klikniecia
-
-                }else{
-                   // gameover.Draw(window);
-                }
             }
-
 
 
 

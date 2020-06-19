@@ -15,6 +15,8 @@ public:
 
     void Draw(sf::RenderWindow &window, int _points);
 
+    void HighScore(sf::RenderWindow &window, int _points);
+
     sf::Sprite PlayAgainButton, ExitButton;
 
 
@@ -25,8 +27,10 @@ private:
 
     sf::Clock _clock;
 
-    sf::Text _scoreTx;
+    sf::Text _scoreTx, _highscoreTx;
     sf::Font font;
+
+    int _highscore;
 
 
 

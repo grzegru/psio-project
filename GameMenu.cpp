@@ -6,43 +6,68 @@
 
 GameMenu::GameMenu()
 {
-  //if(!texture_menu.loadFromFile("C:/Users/Grzechu/Pictures/ptak1.png")){std::cout<<"Fail menu_tx load"<<std::endl;exit(0);}
-  if(!texture_play_button.loadFromFile("C:/Users/Grzechu/Pictures/playbutton.png")){std::cout<<"Fail button_tx load"<<std::endl;exit(0);}
-  if(!texture_BirdMenu.loadFromFile("C:/Users/Grzechu/Pictures/ptak1.png")){std::cout<<"Fail button_tx load"<<std::endl;exit(0);}
+
+  if(!texture_play_button.loadFromFile("textures_fonts/playbutton.png")){std::cout<<"Fail play_button load"<<std::endl;exit(0);}
+  if(!texture_BirdMenu.loadFromFile("textures_fonts/ptak1.png")){std::cout<<"Fail birdMenu load"<<std::endl;exit(0);}
+  if(!texture_TapToPlay.loadFromFile("textures_fonts/tap.png")){std::cout<<"Fail TaptoPlay load"<<std::endl;exit(0);}
+  if(!texture_GetReady.loadFromFile("textures_fonts/getready.png")){std::cout<<"Fail GetReady load"<<std::endl;exit(0);}
+  if(!texture_hand.loadFromFile("textures_fonts/hand.png")){std::cout<<"Fail hand load"<<std::endl;exit(0);}
+  if(!texture_birdBlackWhite.loadFromFile("textures_fonts/ptakBlackWhite.png")){std::cout<<"Fail birdBlackWhite load"<<std::endl;exit(0);}
+  if(!texture_Arrow.loadFromFile("textures_fonts/arrow.png")){std::cout<<"Fail Arrow load"<<std::endl;exit(0);}
 
 
-  //MenuSprite.setTexture(texture_menu);
+
+
+
   PlayButtonSprite.setTexture(texture_play_button);
   PlayButtonSprite.setScale(0.5,0.5);
-  PlayButtonSprite.setPosition(170,350);
+  PlayButtonSprite.setPosition(170,300);
 
 
   texture_BirdMenu.setSmooth(true);
   BirdMenuSprite.setTexture(texture_BirdMenu);
   BirdMenuSprite.setScale(0.1,0.1);
-  BirdMenuSprite.setPosition(50,350);
+  BirdMenuSprite.setPosition(50,300);
+
+  TapToPlaySprite.setTexture(texture_TapToPlay);
+  TapToPlaySprite.setPosition(260,350);
+  TapToPlaySprite.setScale(0.6,0.6);
+
+  GetReadySprite.setTexture(texture_GetReady);
+  GetReadySprite.setPosition(70,130);
+  GetReadySprite.setScale(0.9,0.9);
+
+  HandSprite.setTexture(texture_hand);
+  HandSprite.setPosition(230 , 400);
+  HandSprite.setScale(1.5,1.5 );
+
+  BirdBlackWhiteSprite.setTexture(texture_birdBlackWhite);
+  BirdBlackWhiteSprite.setScale(0.075,0.075);
+  BirdBlackWhiteSprite.setPosition(220, 280);
+
+  ArrowSprite.setTexture(texture_Arrow);
+  ArrowSprite.setScale(0.5 , 0.5);
+  ArrowSprite.setPosition(220,330);
 
 }
 
 
-void GameMenu::Draw(sf::RenderWindow&window){
-    //window.draw(MenuSprite);
+void GameMenu::Draw(sf::RenderWindow&window){     //rysowanie do ekranu startowego
     window.draw(PlayButtonSprite);
     window.draw(BirdMenuSprite);
 
 }
 
+void GameMenu::Draw2(sf::RenderWindow&window){      //rysowanie do ekranu przed gra
+    window.draw(TapToPlaySprite);
+    window.draw(GetReadySprite);
+    window.draw(HandSprite);
+    window.draw(BirdBlackWhiteSprite);
+    window.draw(ArrowSprite);
 
-void GameMenu::click(sf::Event &event,sf::RenderWindow&window, bool gamestart){
-    if(event.type==sf::Event::MouseButtonPressed){
-        if(event.mouseButton.button==sf::Mouse::Left){
-            sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-            if(PlayButtonSprite.getGlobalBounds().contains(mousePos.x,mousePos.y)){
-                gamestart=true;
-                std::cout<<"klikniete";
-            }
-        }
-    }
+
 }
+
+
 
 

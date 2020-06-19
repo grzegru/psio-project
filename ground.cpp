@@ -6,12 +6,12 @@
 
 Ground::Ground(int PosX, int PosY)
 {
-    if(!texture_ground.loadFromFile("C:/Users/Grzechu/Pictures/ground_grass.png")){std::cout<<"Fail ground load"<<std::endl;exit(0);}
-    ground.setTexture(texture_ground);
+    if(!texture_ground.loadFromFile("textures_fonts/ground_grass.png")){std::cout<<"Fail ground load"<<std::endl;exit(0);}
+    groundSprite.setTexture(texture_ground);
     texture_ground.setRepeated(true);
-    ground.setTextureRect(sf::IntRect(0,0,1000000,100));
-    ground.setPosition(PosX,PosY);
-    ground.setScale(0.8,0.8);
+    groundSprite.setTextureRect(sf::IntRect(0,0,1000000,100));
+    groundSprite.setPosition(PosX,PosY);
+    groundSprite.setScale(0.8,0.8);
 
 
 }
@@ -19,19 +19,19 @@ Ground::Ground(int PosX, int PosY)
 Ground::~Ground(){}
 
 void Ground::Draw(sf::RenderWindow&window){
-    window.draw(ground);
+    window.draw(groundSprite);
 
 }
 
 
 void Ground::animate(sf::Time &elapsed){
-    ground.move(ground_speed*elapsed.asSeconds(),0);
+    groundSprite.move(ground_speed*elapsed.asSeconds(),0);
 }
 
 
 
 const sf::Sprite &Ground::GetSprite( ) const{
-    return ground;
+    return groundSprite;
 }
 
 

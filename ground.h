@@ -33,7 +33,7 @@ private:
 
 
     sf::Texture texture_ground;
-    sf::Sprite ground;
+    sf::Sprite groundSprite;
 
 
 };

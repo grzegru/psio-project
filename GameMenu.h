@@ -12,13 +12,26 @@ public:
     GameMenu();
 
     void Draw(sf::RenderWindow &window);
-    void click(sf::Event &event,sf::RenderWindow&window, bool gamestart);
+
+    void Draw2(sf::RenderWindow &window);
+
+    void click(bool _isGameStart, bool _isGameOver, bool _isTaped);
+
+    void clickPlay(sf::RenderWindow &window, bool _isGameStart);
 
 
 
 
-    sf::Texture texture_menu, texture_play_button, texture_BirdMenu;
-    sf::Sprite MenuSprite, PlayButtonSprite, BirdMenuSprite;
+
+    sf::Texture texture_menu, texture_play_button, texture_BirdMenu, texture_TapToPlay, texture_GetReady, texture_hand, texture_birdBlackWhite, texture_Arrow;
+    sf::Sprite MenuSprite, PlayButtonSprite, BirdMenuSprite, TapToPlaySprite, GetReadySprite, HandSprite, BirdBlackWhiteSprite, ArrowSprite;
+private:
+
+    sf::Clock _clock;
+
+
+
+
 
 
 };

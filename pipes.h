@@ -10,10 +10,11 @@
 class Pipes: public sf::Sprite
 {
 public:
-    Pipes(int PosX, int PosY, int Distance);
+    Pipes();
     ~Pipes();
 
-    void Draw(sf::RenderWindow&window);
+
+
     void animate(sf::Time &elapsed);
 
     bool CheckPoints(float BirdPos);
@@ -22,20 +23,26 @@ public:
 
     const sf::Sprite &GetSprite2() const;
 
+    void Draw(sf::RenderWindow&window);
+
+    void setPipe1position();
+
+    void setPipe2position();
+
 private:
 
 
     float speed=-150;
-    int PosX=700;
-    int PosY=800;
-
-
+    int _posX=600;
+    int _posY=380;
+    int _distance=300;
+    int _difference=770;
 
 
 
     //tekstury i sprity
     sf::Texture texture_pipe_up, texture_pipe_down;
-    sf::Sprite pipe_up, pipe_down;
+    sf::Sprite pipe_upSprite, pipe_downSprite;
 
 };
 

@@ -18,7 +18,7 @@ public:
 
 private:
     sf::Texture texture_background;
-    sf::Sprite background;
+    sf::Sprite _backgroundSprite;
 
 };
 

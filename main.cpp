@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <cmath>
 #include <vector>
 #include <ctime>
@@ -21,9 +22,9 @@ sf::Vector2f birdpos(50,400);
 
 
 //obiekty klas
-Pipes pipe1(400,380,0);
-Pipes pipe2(400,380,300);
-Bird bird(50,400);
+Pipes pipe1;
+Pipes pipe2;
+Bird bird;
 Ground ground(0,700);
 Background background;
 Collisions collision;
@@ -34,16 +35,18 @@ Points points;
 
 
 
-
-
-
 //zmienne
 bool isGameStart=false;
+
 bool isGameOver=false;
+
+bool isTaped=false;
 
 int amount_of_points=0;
 
-bool addpoint=false;
+
+
+
 
 
 
@@ -58,6 +61,7 @@ int main()
 
 
     sf::Clock clock;
+    sf::Clock _clock;
 
 
     while (window.isOpen()) {
@@ -74,25 +78,55 @@ int main()
             // clear the window with black color
             window.clear(sf::Color::Black);
 
-            // draw everything here...
 
 
 
             background.draw(window);
 
 
-            if((isGameStart==false) && (isGameOver==false)){
-                gamemenu.Draw(window);
-                bird.setPosition(50,100);
+            if((isGameStart==false) && (isGameOver==false) && (isTaped==false)){
+                gamemenu.Draw(window);                                          //      menu
+                amount_of_points=0;
+                bird.setposition();
+                pipe1.setPipe1position();
+                pipe2.setPipe2position();
+
+
+
+
                 if(event.type==sf::Event::MouseButtonPressed){
                     if(event.mouseButton.button==sf::Mouse::Left){
                         sf::Vector2i mousePos = sf::Mouse::getPosition(window);
                         if(gamemenu.PlayButtonSprite.getGlobalBounds().contains(mousePos.x,mousePos.y)){
                             isGameStart=true;
+                            _clock.restart();
                         }
                     }
                 }
-            }else if((isGameStart==true) && (isGameOver==false)){
+            }else if((isGameStart==true) && (isGameOver==false) && (isTaped==false)){     //get_ready
+                bird.animate();
+                ground.animate(elapsed);
+
+
+
+                bird.Draw(window);
+                gamemenu.Draw2(window);
+                ground.Draw(window);
+
+                if(_clock.getElapsedTime().asSeconds()>0.2){
+                    if(event.type==sf::Event::MouseButtonPressed){
+                       if(event.mouseButton.button==sf::Mouse::Left){
+                          isGameStart=true;
+                          isGameOver=false;
+                         isTaped=true;
+                        }
+                    }
+                }
+
+
+
+
+            }else if((isGameStart==true) && (isGameOver==false) && (isTaped==true)){   // game
                 pipe1.animate(elapsed);
                 pipe2.animate(elapsed);
 
@@ -103,9 +137,15 @@ int main()
                 bird.click();                             //wylapywanie klikniecia
 
 
+
+
+
                 if(pipe1.CheckPoints(bird.getPosition().x) || pipe2.CheckPoints(bird.getPosition().x)){
-                    amount_of_points=amount_of_points+1;}                                             // do poprawy
-                   points.updateScore(amount_of_points/30);
+                    amount_of_points=amount_of_points+1;
+                    points.PointsSound();
+
+                }
+                   points.updateScore(amount_of_points);
 
 
 
@@ -115,8 +155,10 @@ int main()
                   (collision.CheckCollision(bird.GetSprite(), pipe1.GetSprite2(), pipe2.GetSprite2()))){    //kolizja ptaka z rura d
                     isGameOver=true;
                     isGameStart=false;
+                    collision.collisionSound();
 
                 }
+
 
 
                 pipe1.Draw(window);
@@ -126,28 +168,33 @@ int main()
                 points.Draw(window);
 
 
-            }else if((isGameStart==false) && (isGameOver==true)){
+            }else if((isGameStart==false) && (isGameOver==true) && (isTaped==true)){ // game over
 
                 bird.birdfalling(elapsed);
-
-                pipe1.Draw(window);
-                pipe2.Draw(window);
-                bird.Draw(window);
-                ground.Draw(window);
-                gameover.Draw(window, amount_of_points/2);
 
                 if(event.type==sf::Event::MouseButtonPressed){
                     if(event.mouseButton.button==sf::Mouse::Left){
                         sf::Vector2i mousePos = sf::Mouse::getPosition(window);
                         if(gameover.PlayAgainButton.getGlobalBounds().contains(mousePos.x,mousePos.y)){
-                            isGameStart=false;
                             isGameOver=false;
-                            std::cout<<"klikniecie";
+                            isGameStart=false;
+                            isTaped=false;
+                            amount_of_points=0;
 
 
+
+                        }else if(gameover.ExitButton.getGlobalBounds().contains(mousePos.x,mousePos.y)){
+                            window.close();
                         }
                     }
                 }
+                pipe1.Draw(window);
+                pipe2.Draw(window);
+                bird.Draw(window);
+                ground.Draw(window);
+                gameover.Draw(window, amount_of_points);
+                gameover.HighScore(window, amount_of_points);
+
 
 
             }

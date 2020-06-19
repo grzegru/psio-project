@@ -1,4 +1,4 @@
-# Opis projektu 
+## Opis projektu 
 Celem projektu było zrobienie adaptacji gry FlappyBird. Jest to gra która w 2013 roku była jedną z najbardziej popularnych gier na urządzenia mobline, została nazwana najpopularniejszą darmową grą na świecie. Jest to gra o prostej rozgrywce, o charakterze gry zręcznościowej. Głównym zadaniem gracza jest przelatywanie między rurami i staranie się, żeby uniknąć kolizji
 W projekcie docelowo utworzyłem 8 klas które składają się na plik .cpp oraz plik .h. W każdnym pliku .h mamy nagłówki metod, natomiast w pliku .cpp mamy całe ciało metody. 
 Klasa Background odpowiada za: 
@@ -36,9 +36,9 @@ Klasa Points odpowiada za:
 Plik main.cpp w którym tworzone są obiekty, okno programu oraz wywoływane są funkcję.
 ## Sterowanie oraz zasady gry
 W grze całe sterowanie opiera się na lewym przycisku myszy. Po kliknięciu play wyświetla się okno z lecącym ptakiem oraz komunikatem do przygotowania, po kolejnym kliknięciu zaczynają pojawiać się rury, a na ptaka zaczyna działać grawitacja. Rozgrywka kończy się wraz z kolizją z podłożem lub z rurami. Zostaję wyświetlony wynik końcowy, rekord oraz przyciski do ponownego zagrania lub też wyjścia z gry.
-### Niezbędne biblioteki 
+## Niezbędne biblioteki 
 SFML-2.5.1
-#### Zewnętrzne zasoby 
+## Zewnętrzne zasoby 
 Część grafik została wykonana przeze mnie, inne zostały zapożyczone, były one na licencji pozwalającej na ogólny dostęp, jedynie mile widziane jest wspomnienie:
 - ptak - OpenGameArt.org ; autor: bevouliin.com 
 -tło, rury oraz podłoże-  kenney.nl ;

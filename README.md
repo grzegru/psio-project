@@ -33,7 +33,7 @@ Celem projektu było zrobienie adaptacji gry FlappyBird. Jest to gra która w 20
 - zamianie ilosci punktow na zmienna typu "string" aby wyświetlić ilość punktów za pomocą font'a
 - wyswietlanie ilosci punktow na ekranie,
 - odglos zdobycia punkta,
-Plik main.cpp w którym tworzone są obiekty, okno programu oraz wywoływane są funkcję.
+#### Plik main.cpp w którym tworzone są obiekty, okno programu oraz wywoływane są funkcję.
 ## Sterowanie oraz zasady gry
 W grze całe sterowanie opiera się na lewym przycisku myszy. Po kliknięciu play wyświetla się okno z lecącym ptakiem oraz komunikatem do przygotowania, po kolejnym kliknięciu zaczynają pojawiać się rury, a na ptaka zaczyna działać grawitacja. Rozgrywka kończy się wraz z kolizją z podłożem lub z rurami. Zostaję wyświetlony wynik końcowy, rekord oraz przyciski do ponownego zagrania lub też wyjścia z gry.
 ## Niezbędne biblioteki 

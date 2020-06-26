@@ -2,6 +2,7 @@
 #define GAMEMENU_H
 #include <iostream>
 #include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -17,20 +18,20 @@ public:
 
     void click(bool _isGameStart, bool _isGameOver, bool _isTaped);
 
-    void clickPlay(sf::RenderWindow &window, bool _isGameStart);
+    void clickPlay();
 
-
+    void Animate(bool isBonus);
 
 
 
     sf::Texture texture_menu, texture_play_button, texture_BirdMenu, texture_TapToPlay, texture_GetReady, texture_hand, texture_birdBlackWhite, texture_Arrow;
     sf::Sprite MenuSprite, PlayButtonSprite, BirdMenuSprite, TapToPlaySprite, GetReadySprite, HandSprite, BirdBlackWhiteSprite, ArrowSprite;
+
 private:
-
+    sf::SoundBuffer GameMusicBuffer;
+    sf::Sound GameMusic;
+    bool isBonusOn = false;
     sf::Clock _clock;
-
-
-
 
 
 

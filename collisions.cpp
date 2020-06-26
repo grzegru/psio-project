@@ -33,14 +33,16 @@ bool Collisions::CheckCollision(sf::Sprite sprite1, sf::Sprite sprite2){        
 
 
 
-bool Collisions::CheckCollision(sf::Sprite sprite1, sf::Sprite sprite2, sf::Sprite sprite3){  //kolizja ptaka z rurami
+bool Collisions::CheckCollision(sf::Sprite sprite1, sf::Sprite sprite2, sf::Sprite sprite3, bool isTransparency){  //kolizja ptaka z rurami
 
     sprite1.setScale(0.060,0.060);
     sf::Rect<float> rect1 = sprite1.getGlobalBounds();
     sf::Rect<float> rect2 = sprite2.getGlobalBounds();
     sf::Rect<float> rect3 = sprite3.getGlobalBounds();
-
-    if((rect1.intersects(rect2))||(rect1.intersects(rect3))){
+    if (isTransparency) {
+        return false;
+    }
+    else if((rect1.intersects(rect2))||(rect1.intersects(rect3))){
         return true;
 
     }else{
@@ -51,4 +53,5 @@ bool Collisions::CheckCollision(sf::Sprite sprite1, sf::Sprite sprite2, sf::Spri
 void Collisions::collisionSound(){
     CollisionSound.play();
 }
+
 

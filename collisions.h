@@ -16,7 +16,7 @@ public:
 
     bool CheckCollision(sf::Sprite sprite1, sf::Sprite sprite2);
 
-    bool CheckCollision(sf::Sprite sprite1, sf::Sprite sprite2, sf::Sprite sprite3);
+    bool CheckCollision(sf::Sprite sprite1, sf::Sprite sprite2, sf::Sprite sprite3, bool isTransparency);
 
     void collisionSound();
 

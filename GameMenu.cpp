@@ -49,6 +49,9 @@ GameMenu::GameMenu()
   ArrowSprite.setScale(0.5 , 0.5);
   ArrowSprite.setPosition(220,330);
 
+  if (!GameMusicBuffer.loadFromFile("sounds/soundtrack.wav")) { std::cout << "Fail buffer load" << std::endl; exit(0); }
+  GameMusic.setBuffer(GameMusicBuffer);
+
 }
 
 
@@ -65,6 +68,20 @@ void GameMenu::Draw2(sf::RenderWindow&window){      //rysowanie do ekranu przed 
     window.draw(BirdBlackWhiteSprite);
     window.draw(ArrowSprite);
 
+
+}
+void GameMenu::Animate(bool isBonus) {
+    isBonusOn = isBonus;
+    if (isBonusOn) {
+        GameMusic.setPitch(2);
+    }
+    else {
+        GameMusic.setPitch(1);
+    }
+}
+void GameMenu::clickPlay() {
+    GameMusic.setLoop(true);
+    GameMusic.play();
 
 }
 

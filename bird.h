@@ -16,7 +16,7 @@ class Bird: public sf::Sprite
 public:
     Bird(/*int PosX, int PosY*/);
 
-    void Draw(sf::RenderWindow&window);
+    void Draw(sf::RenderWindow &window);
 
     void animate();
 

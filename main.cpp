@@ -13,6 +13,8 @@
 #include "GameMenu.h"
 #include "gameover.h"
 #include "Points.h"
+#include "bonus.h"
+
 
 
 using namespace std;
@@ -22,6 +24,7 @@ sf::Vector2f birdpos(50,400);
 
 
 //obiekty klas
+bonus bon;
 Pipes pipe1;
 Pipes pipe2;
 Bird bird;
@@ -42,9 +45,11 @@ bool isGameOver=false;
 
 bool isTaped=false;
 
-int amount_of_points=0;
+bool isBonus = false;
 
+int amount_of_points=9;
 
+int timer = 0;
 
 
 
@@ -99,13 +104,15 @@ int main()
                         sf::Vector2i mousePos = sf::Mouse::getPosition(window);
                         if(gamemenu.PlayButtonSprite.getGlobalBounds().contains(mousePos.x,mousePos.y)){
                             isGameStart=true;
+                            gamemenu.clickPlay();
                             _clock.restart();
                         }
                     }
                 }
             }else if((isGameStart==true) && (isGameOver==false) && (isTaped==false)){     //get_ready
+
                 bird.animate();
-                ground.animate(elapsed);
+                ground.animate(elapsed, isBonus);
 
 
 
@@ -127,10 +134,30 @@ int main()
 
 
             }else if((isGameStart==true) && (isGameOver==false) && (isTaped==true)){   // game
-                pipe1.animate(elapsed);
-                pipe2.animate(elapsed);
 
-                ground.animate(elapsed);
+                if (event.mouseButton.button == sf::Mouse::Right) {
+                    isBonus = !isBonus;
+                    amount_of_points = 15;
+
+                }
+                if (isBonus) {
+
+                    if (timer >= 300) { //3000
+                        timer = 0;
+                        isBonus = false;
+                    }
+                    else {
+
+                        timer++;
+                    }
+
+                }
+                bon.animate(window, elapsed.asSeconds(),pipe2.getPosition().x);
+                gamemenu.Animate(isBonus);
+                pipe1.animate(elapsed, isBonus, amount_of_points);
+                pipe2.animate(elapsed, isBonus, amount_of_points);
+
+                ground.animate(elapsed, isBonus);
 
                 bird.animate();
                 bird.Update(elapsed);                    //metoda odpowiadajaca za lot ptaka po kliknieciu(w osi OY oraz rotacja)
@@ -147,17 +174,21 @@ int main()
                 }
                    points.updateScore(amount_of_points);
 
-
+                   if (collision.CheckCollision(bird.GetSprite(), bon.getSprite())){
+                       isBonus = true;
+                       bon.harvest();
+                }
 
 
                 if(((collision.CheckCollision(bird.GetSprite(), ground.GetSprite())) ||                     //kolizja ptaka z podlozem
-                  (collision.CheckCollision(bird.GetSprite(), pipe1.GetSprite(), pipe2.GetSprite()))) ||    //kolizja ptaka z rura g
-                  (collision.CheckCollision(bird.GetSprite(), pipe1.GetSprite2(), pipe2.GetSprite2()))){    //kolizja ptaka z rura d
+                  (collision.CheckCollision(bird.GetSprite(), pipe1.GetSprite(), pipe2.GetSprite(), isBonus))) ||    //kolizja ptaka z rura g
+                  (collision.CheckCollision(bird.GetSprite(), pipe1.GetSprite2(), pipe2.GetSprite2(), isBonus))){    //kolizja ptaka z rura d
                     isGameOver=true;
                     isGameStart=false;
                     collision.collisionSound();
 
                 }
+
 
 
 

@@ -17,7 +17,7 @@ public:
 
     void Draw(sf::RenderWindow &window);
 
-    void animate(sf::Time &elapsed);
+    void animate(sf::Time &elapsed, bool isBonus);
 
     const sf::Sprite &GetSprite( ) const;
 

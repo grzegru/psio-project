@@ -7,6 +7,7 @@
 
 
 
+
 class Pipes: public sf::Sprite
 {
 public:
@@ -15,7 +16,7 @@ public:
 
 
 
-    void animate(sf::Time &elapsed);
+    void animate(sf::Time &elapsed, bool isBonus, int points);
 
     bool CheckPoints(float BirdPos);
 
@@ -29,15 +30,21 @@ public:
 
     void setPipe2position();
 
+    void setPipesTransparency();
+
+    bool isPipesTransparency();
+
 private:
 
 
     float speed=-150;
+    float vertical_speed = 60;
     int _posX=600;
     int _posY=380;
     int _distance=300;
     int _difference=770;
-
+    double time = 0.0;
+    bool _isTransparency = false;
 
 
     //tekstury i sprity

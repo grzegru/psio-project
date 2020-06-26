@@ -24,7 +24,13 @@ void Ground::Draw(sf::RenderWindow&window){
 }
 
 
-void Ground::animate(sf::Time &elapsed){
+void Ground::animate(sf::Time &elapsed, bool isBonus){
+    if (isBonus) {
+        ground_speed = -300;
+    }
+    else {
+        ground_speed = -150;
+    }
     groundSprite.move(ground_speed*elapsed.asSeconds(),0);
 }
 
@@ -33,7 +39,6 @@ void Ground::animate(sf::Time &elapsed){
 const sf::Sprite &Ground::GetSprite( ) const{
     return groundSprite;
 }
-
 
 
 

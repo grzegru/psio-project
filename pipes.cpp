@@ -31,13 +31,33 @@ Pipes::Pipes()
      Pipes::~Pipes(){}
 
 
-     void Pipes::animate(sf::Time &elapsed){
+     void Pipes::animate(sf::Time &elapsed, bool isBonus, int points){
 
-         pipe_upSprite.move(speed*elapsed.asSeconds(),0);
-         pipe_downSprite.move(speed*elapsed.asSeconds(),0);
+         _isTransparency = isBonus;
+
+         setPipesTransparency();
+         if (points > 10){
+             pipe_upSprite.move(speed * elapsed.asSeconds(), vertical_speed * elapsed.asSeconds());
+             pipe_downSprite.move(speed * elapsed.asSeconds(), vertical_speed * elapsed.asSeconds());
+
+
+             if (pipe_upSprite.getPosition().y < -500){
+                     vertical_speed = 60;
+             }
+             else if (pipe_upSprite.getPosition().y > -200) {
+                 vertical_speed = -60;
+             }
+
+
+         }
+         else{
+             pipe_upSprite.move(speed * elapsed.asSeconds(), 0);
+             pipe_downSprite.move(speed * elapsed.asSeconds(), 0);
+         }
          if(pipe_upSprite.getPosition().x <= -50&&pipe_downSprite.getPosition().x <= -50){    //wylapywanie rur ktore sa poza ekranem
              int down = rand()%350+300;                                                      //losowane polozenie rur
              int up = down-770;                                                             // regulowanie odstepu miedzy rurami
+
              pipe_upSprite.setPosition( 550 , up );
              pipe_downSprite.setPosition( 550 , down );
 
@@ -68,8 +88,8 @@ Pipes::Pipes()
 
      bool Pipes::CheckPoints(float BirdPos){                 //funkcja do liczenia punktow
 
-         int leftside=BirdPos;
-         int rightside=BirdPos+2;
+         double leftside=BirdPos;
+         double rightside=BirdPos-speed/60.0;
 
 
          float leftside_pipeup=pipe_upSprite.getPosition().x+15;
@@ -99,4 +119,23 @@ Pipes::Pipes()
          pipe_upSprite.setPosition(_posX+_distance , _posY-_difference);
          pipe_downSprite.setPosition(_posX+_distance , _posY);
 
+     }
+
+     void Pipes::setPipesTransparency() {
+         if (_isTransparency) {
+
+             speed = -300;
+             pipe_downSprite.setColor(sf::Color(255, 255, 255, 128));
+             pipe_upSprite.setColor(sf::Color(255, 255, 255, 128));
+         }
+         else {
+             speed = -150;
+             pipe_downSprite.setColor(sf::Color(255, 255, 255, 255));
+             pipe_upSprite.setColor(sf::Color(255, 255, 255, 255));
+         }
+
+     }
+
+     bool Pipes::isPipesTransparency() {
+         return _isTransparency;
      }
